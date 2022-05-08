@@ -1,4 +1,6 @@
 using FirstRESTful.Models;
+using FirstRESTful.Reposirory;
+using FirstRESTful.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -20,7 +22,11 @@ namespace FirstRESTfull
         {
             string con = "server=127.0.0.1;user id=root;database=firstrestdb;password=0802";
             // устанавливаем контекст данных
+            
             services.AddDbContext<ProductsContext>(options => options.UseMySQL(con));
+
+            // Чтобы работала прослойка с ProductsService
+            services.AddScoped<IProductsService, ProductsService>();
 
             services.AddControllers(); // используем контроллеры без представлений
 
