@@ -26,7 +26,6 @@ namespace FirstRESTful.Controllers
             return new ObjectResult(db.GetProducts());
         }
 
-        // GET api/users/5
         [HttpGet("{id}")]
         public ActionResult<ProductDTO> Get(int id)
         {
@@ -53,11 +52,12 @@ namespace FirstRESTful.Controllers
         [HttpPut]
         public ActionResult<ProductDTO> Put(ProductDTO product)
         {
+            //System.Console.WriteLine();
             if (product == null)
             {
                 return BadRequest();
             }
-            if (db.Any(x => x.Id == product.Id))
+            if (!db.Any(x => x.Id == product.Id))
             {
                 return NotFound();
             }

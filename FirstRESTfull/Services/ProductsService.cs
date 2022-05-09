@@ -60,7 +60,7 @@ namespace FirstRESTful.Services
 
         public bool Any(Func<ProductDTO,bool> expression)
         {
-            var productsDTO = from p in db.Products
+            IQueryable<ProductDTO> productsDTO = from p in db.Products
                            select new ProductDTO()
                            {
                                Id = p.Id,
@@ -69,14 +69,15 @@ namespace FirstRESTful.Services
                                Quanity = p.Quanity,
                                QuanityOfBuys = p.QuanityOfBuys
                            };
-            return productsDTO.Any(expression);
+            var res = productsDTO.Any(expression);
+            return res;
         }
 
         public void UpdateProduct(ProductDTO product)
         {
             var productToChange = new Product()
             {
-                Id = product.Id,
+                //Id = product.Id,
                 Name = product.Name,
                 Price = product.Price,
                 Quanity = product.Quanity,
